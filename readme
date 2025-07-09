@@ -1,0 +1,155 @@
+# 🎨 Cox's Coatings Lead Scraper
+
+A multi-platform paint lead scraper designed to automate lead generation for **Horry County, SC** and **Columbus County, NC**. Targets keywords like "interior painter", "need a painter", etc. across:
+- Yelp
+- Craigslist
+- YellowPages
+- (Nextdoor & Facebook Marketplace support coming)
+
+Leads are:
+- Saved to `output/leads.csv`
+- Synced to a Google Sheet: **Cox Paint Leads**
+- 📬 Emailed directly to: `coxscoatings@gmail.com`
+
+---
+
+## 🛠️ Setup
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/Propainterking/paint-leads.git
+cd paint-leads
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+venv\Scripts\activate  # On Windows
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔐 Google Sheets Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project
+3. Enable **Google Sheets API** and **Google Drive API**
+4. Create **Service Account** credentials
+5. Download the key and save it as:
+   ```
+   credentials.json
+   ```
+6. Share your sheet "Cox Paint Leads" with your service account email
+
+---
+
+## ✉️ Email Setup
+
+1. Enable “Less Secure App Access” for Gmail OR create an App Password
+2. Create a `.env` file:
+
+```env
+EMAIL_ADDRESS=coxscoatings@gmail.com
+EMAIL_PASSWORD=yourapppasswordhere
+```
+
+✅ This will send your leads.csv after every scrape.
+
+---
+
+## 🚀 Run the Scraper
+
+```bash
+python painting_lead_scraper.py
+```
+
+This will:
+- Scrape each platform for each keyword in each location
+- Save all leads to `output/leads.csv`
+- Log run status to `output/log.txt`
+- Sync to Google Sheets
+- Email the CSV to your inbox
+
+---
+
+## 🤖 Automate with Task Scheduler (Windows)
+
+Set it to run:
+- Start: 8:00 AM
+- Repeat: Every 4 hours
+- Duration: 12 hours
+
+### Settings:
+- **Program/script:**
+  ```
+  C:\Users\Joshua\paint-leads\venv\Scripts\python.exe
+  ```
+- **Add arguments:**
+  ```
+  painting_lead_scraper.py
+  ```
+- **Start in:**
+  ```
+  C:\Users\Joshua\paint-leads
+  ```
+
+---
+
+## 🧠 Keyword & Location Targeting
+
+Managed in `config.py`.  
+Keywords:
+```
+interior painter, exterior painter, painting job, paint my house, trim touch-up, deck painting...
+```
+
+Locations:
+```
+Conway SC, Myrtle Beach SC, North Myrtle Beach SC, Whiteville NC, Tabor City NC, Chadbourn NC
+```
+
+---
+
+## 🔍 Scraper Modules
+
+Stored inside `/platforms/`
+
+| File                   | Source        |
+|------------------------|---------------|
+| `yelp_scraper.py`      | Yelp business listings |
+| `craigslist_scraper.py`| Jobs & services |
+| `yellowpages_scraper.py`| Paint pros |
+| *(more coming soon)*   | Facebook, Nextdoor |
+
+---
+
+## 📄 Output
+
+- ✅ `output/leads.csv` → new leads
+- ✅ `output/log.txt` → scraper progress
+- 📬 Gmail delivery of CSV summary
+- 📊 Google Sheets sync (name: Cox Paint Leads)
+
+---
+
+## 🔥 Want more?
+
+Coming soon:
+- Dashboard for lead stats
+- SMS alerts for hot leads
+- AI-based hot-lead scoring
+- Angi + Thumbtack scrapers
+
+---
+
+Built for Cox’s Coatings by Joshua with 🧠 + 🎨  
+Scraping your region. Filling your inbox. Scaling your paint game.
+
